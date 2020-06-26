@@ -1,0 +1,17 @@
+[Unit]
+Description=GeenTi DDNS Script
+#描述服务
+After=syslog.target
+After=network.target
+
+[Service]
+Type=forking
+#代表后台运行
+Restart=on-failure
+PIDFile=/home/sp_home/gt_sp_ddns/gt_sp_ddns.pid
+ExecStart=/home/py_v_env/gt_sp_ddns/bin/python3 /home/sp_home/gt_sp_ddns/gt_sp_ddns.py
+ExecStop=ps -ef | grep gt_sp_ddns | awk '{print $2}' | xargs kill -9
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
